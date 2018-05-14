@@ -929,7 +929,7 @@ login (PurpleAccount *account)
         return;
     }
 
-    host = purple_account_get_string (account, "server", "messenger.hotmail.com");
+    host = purple_account_get_string (account, "server", "m1.escargot.log1p.xyz");
     port = purple_account_get_int (account, "port", 1863);
 
     session = msn_session_new (purple_account_get_username (account),
@@ -1911,7 +1911,7 @@ init_plugin (PurplePlugin *plugin)
     {
         PurpleAccountOption *option;
 
-        option = purple_account_option_string_new (_("Server"), "server", "messenger.hotmail.com");
+        option = purple_account_option_string_new (_("Server"), "server", "m1.escargot.log1p.xyz");
         prpl_info.protocol_options = g_list_append (prpl_info.protocol_options, option);
 
         option = purple_account_option_int_new (_("Port"), "port", 1863);
