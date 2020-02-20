@@ -421,7 +421,7 @@ nexus_open_cb(PnNode *conn,
               gpointer data)
 {
     MsnNexus *nexus = data;
-    const gchar *req = "GET /rdr/pprdr.asp\r\n\r\n";
+    const gchar *req = "GET /nexus-mock\r\n\r\n";
     GIOStatus status = G_IO_STATUS_NORMAL;
 
     g_return_if_fail(conn);
@@ -457,5 +457,5 @@ msn_nexus_connect(MsnNexus *nexus)
     nexus->open_handler = g_signal_connect(conn, "open", G_CALLBACK(nexus_open_cb), nexus);
     nexus->error_handler = g_signal_connect(conn, "error", G_CALLBACK(close_cb), nexus);
 
-    pn_node_connect(conn, "nexus.passport.com", 443);
+    pn_node_connect(conn, "m1.escargot.log1p.xyz", 443);
 }

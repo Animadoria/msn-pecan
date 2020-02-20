@@ -1087,7 +1087,7 @@ instance_init (GTypeInstance *instance,
 {
     PnHttpServer *http_conn = PN_HTTP_SERVER (instance);
 
-    http_conn->gateway = g_strdup ("gateway.messenger.hotmail.com");
+    http_conn->gateway = g_strdup ("gateway.m1.escargot.log1p.xyz");
     http_conn->write_queue = g_queue_new ();
     http_conn->childs = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
 }
