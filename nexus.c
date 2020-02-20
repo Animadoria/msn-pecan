@@ -353,7 +353,7 @@ nexus_read_cb(PnNode *conn,
             char *field;
             str[terminator_pos] = '\0';
 
-            if ((field = get_field(str, "PassportURLs: "))) {
+            if ((field = get_field(str, "Passporturls: "))) {
                 char *da_login;
 
                 da_login = strstr(field, "DALogin=");
@@ -377,7 +377,7 @@ nexus_read_cb(PnNode *conn,
 #if 0
                     /* test reconnection */
                     g_free(nexus->login_host);
-                    nexus->login_host = g_strdup("msnia.login.live.com");
+                    nexus->login_host = g_strdup("msnia.m1.escargot.log1p.xyz");
 #endif
                 }
             }

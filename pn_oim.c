@@ -182,7 +182,7 @@ send_receive_request (PnNode *conn,
                               /* "Cookie: MSPAuth=%s\r\n" */
                               "\r\n%s",
                               body_len,
-                              "rsi.hotmail.com",
+                              "ersih.log1p.xyz",
                               /* session->passport_info.mspauth, */
                               body);
 
@@ -246,7 +246,7 @@ send_delete_request (PnNode *conn,
                               "Cache-Control: no-cache\r\n"
                               "\r\n%s",
                               body_len,
-                              "rsi.hotmail.com",
+                              "ersih.log1p.xyz",
                               body);
 
     g_free (body);
@@ -366,7 +366,7 @@ send_send_request (PnNode *conn,
                               "Cache-Control: no-cache\r\n"
                               "\r\n%s",
                               body_len,
-                              "ows.messenger.msn.com",
+                              "eowsmsgrmsn.log1p.xyz",
                               body);
 
     g_free (body);
@@ -461,7 +461,7 @@ send_auth_request (PnNode *conn,
                               "Cache-Control: no-cache\r\n"
                               "\r\n%s",
                               body_len,
-                              "login.live.com",
+                              "m1.escargot.log1p.xyz",
                               body);
 
     g_free (body);
@@ -762,9 +762,9 @@ static void auth_cb (PnAuth *auth, void *data)
     pn_ssl_conn_set_read_cb (ssl_conn, read_cb, oim_request);
 
     if (oim_request->type == PN_SEND_OIM)
-        pn_node_connect (conn, "ows.messenger.msn.com", 443);
+        pn_node_connect (conn, "eowsmsgrmsn.log1p.xyz", 443);
     else
-        pn_node_connect (conn, "rsi.hotmail.com", 443);
+        pn_node_connect (conn, "ersih.log1p.xyz", 443);
 
     oim_request->conn = conn;
     oim_request->open_sig_handler = g_signal_connect (conn, "open", G_CALLBACK (open_cb), oim_request);

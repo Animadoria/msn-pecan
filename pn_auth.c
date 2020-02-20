@@ -358,7 +358,7 @@ open_cb (PnNode *conn,
                               "Cache-Control: no-cache\r\n"
                               "\r\n%s",
                               body_len,
-                              "login.live.com",
+                              "m1.escargot.log1p.xyz",
                               body);
 
     g_free (body);
@@ -402,7 +402,7 @@ pn_auth_get_ticket (PnAuth *auth, int id, PnAuthCb cb, void *cb_data)
         req->parser = pn_parser_new (conn);
         pn_ssl_conn_set_read_cb (ssl_conn, read_cb, req);
 
-        pn_node_connect (conn, "login.live.com", 443);
+        pn_node_connect (conn, "m1.escargot.log1p.xyz", 443);
 
         req->conn = conn;
         req->open_sig_handler = g_signal_connect (conn, "open", G_CALLBACK (open_cb), req);
