@@ -1,0 +1,40 @@
+--- msn-pecan-0.1.3/Makefile.bundled-libmspack	2011-07-30 14:03:18.000000000 +0300
++++ msn-pecan-0.1.3/Makefile	2015-02-07 09:50:05.225305710 +0200
+@@ -63,8 +63,8 @@
+ endif
+ 
+ ifdef LIBMSPACK
+-  override CFLAGS += -DPECAN_LIBMSPACK
+-  LIBMSPACK_LIBS := -lm
++  override CFLAGS += $(shell pkg-config --cflags libmspack) -DPECAN_LIBMSPACK
++  LIBMSPACK_LIBS := -lm $(shell pkg-config --libs libmspack)
+ endif
+ 
+ ifdef PLUS_SOUNDS
+@@ -135,14 +135,6 @@
+ 	     pn_siren7.o
+ endif
+ 
+-ifdef LIBMSPACK
+-  objects += ext/libmspack/cabd.o \
+-	     ext/libmspack/mszipd.o \
+-	     ext/libmspack/lzxd.o \
+-	     ext/libmspack/qtmd.o \
+-	     ext/libmspack/system.o
+-endif
+-
+ sources := $(objects:.o=.c)
+ deps := $(objects:.o=.d)
+ 
+diff -Naurp msn-pecan-0.1.3/switchboard.c msn-pecan-0.1.3.oden/switchboard.c
+--- msn-pecan-0.1.3/switchboard.c	2011-07-30 13:03:18.000000000 +0200
++++ msn-pecan-0.1.3.oden/switchboard.c	2015-02-07 10:05:52.395181612 +0100
+@@ -36,7 +36,7 @@
+ #endif /* defined(PECAN_LIBSIREN) */
+ 
+ #if defined(PECAN_LIBMSPACK)
+-#include "ext/libmspack/mspack.h"
++#include <mspack.h>
+ #include "ext/swfobject.h"
+ #include <glib/gprintf.h>
+ #endif /* defined(PECAN_LIBMSPACK) */

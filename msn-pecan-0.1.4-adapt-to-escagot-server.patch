@@ -1,0 +1,142 @@
+diff -rupN msn-pecan-0.1.4.old/io/pn_http_server.c msn-pecan-0.1.4/io/pn_http_server.c
+--- msn-pecan-0.1.4.old/io/pn_http_server.c	2012-10-13 08:42:18.000000000 +0200
++++ msn-pecan-0.1.4/io/pn_http_server.c	2020-08-19 13:26:04.722093768 +0200
+@@ -1087,7 +1087,7 @@ instance_init (GTypeInstance *instance,
+ {
+     PnHttpServer *http_conn = PN_HTTP_SERVER (instance);
+ 
+-    http_conn->gateway = g_strdup ("gateway.messenger.hotmail.com");
++    http_conn->gateway = g_strdup ("gateway.m1.escargot.log1p.xyz");
+     http_conn->write_queue = g_queue_new ();
+     http_conn->childs = g_hash_table_new_full (g_str_hash, g_str_equal, g_free, g_object_unref);
+ }
+diff -rupN msn-pecan-0.1.4.old/msn.c msn-pecan-0.1.4/msn.c
+--- msn-pecan-0.1.4.old/msn.c	2012-10-13 08:42:18.000000000 +0200
++++ msn-pecan-0.1.4/msn.c	2020-08-19 13:26:50.844043574 +0200
+@@ -929,7 +929,7 @@ login (PurpleAccount *account)
+         return;
+     }
+ 
+-    host = purple_account_get_string (account, "server", "messenger.hotmail.com");
++    host = purple_account_get_string (account, "server", "m1.escargot.log1p.xyz");
+     port = purple_account_get_int (account, "port", 1863);
+ 
+     session = msn_session_new (purple_account_get_username (account),
+@@ -1911,7 +1911,7 @@ init_plugin (PurplePlugin *plugin)
+     {
+         PurpleAccountOption *option;
+ 
+-        option = purple_account_option_string_new (_("Server"), "server", "messenger.hotmail.com");
++        option = purple_account_option_string_new (_("Server"), "server", "m1.escargot.log1p.xyz");
+         prpl_info.protocol_options = g_list_append (prpl_info.protocol_options, option);
+ 
+         option = purple_account_option_int_new (_("Port"), "port", 1863);
+diff -rupN msn-pecan-0.1.4.old/nexus.c msn-pecan-0.1.4/nexus.c
+--- msn-pecan-0.1.4.old/nexus.c	2012-10-13 08:42:18.000000000 +0200
++++ msn-pecan-0.1.4/nexus.c	2020-08-19 13:34:58.492757062 +0200
+@@ -353,7 +353,7 @@ nexus_read_cb(PnNode *conn,
+             char *field;
+             str[terminator_pos] = '\0';
+ 
+-            if ((field = get_field(str, "PassportURLs: "))) {
++            if ((field = get_field(str, "Passporturls: "))) {
+                 char *da_login;
+ 
+                 da_login = strstr(field, "DALogin=");
+@@ -377,7 +377,7 @@ nexus_read_cb(PnNode *conn,
+ #if 0
+                     /* test reconnection */
+                     g_free(nexus->login_host);
+-                    nexus->login_host = g_strdup("msnia.login.live.com");
++                    nexus->login_host = g_strdup("m1.escargot.log1p.xyz");
+ #endif
+                 }
+             }
+@@ -421,7 +421,7 @@ nexus_open_cb(PnNode *conn,
+               gpointer data)
+ {
+     MsnNexus *nexus = data;
+-    const gchar *req = "GET /rdr/pprdr.asp\r\n\r\n";
++	const gchar *req = "GET /nexus-mock\r\n\r\n";
+     GIOStatus status = G_IO_STATUS_NORMAL;
+ 
+     g_return_if_fail(conn);
+@@ -457,5 +457,5 @@ msn_nexus_connect(MsnNexus *nexus)
+     nexus->open_handler = g_signal_connect(conn, "open", G_CALLBACK(nexus_open_cb), nexus);
+     nexus->error_handler = g_signal_connect(conn, "error", G_CALLBACK(close_cb), nexus);
+ 
+-    pn_node_connect(conn, "nexus.passport.com", 443);
++	pn_node_connect(conn, "m1.escargot.log1p.xyz", 443);
+ }
+diff -rupN msn-pecan-0.1.4.old/pn_auth.c msn-pecan-0.1.4/pn_auth.c
+--- msn-pecan-0.1.4.old/pn_auth.c	2012-10-13 08:42:18.000000000 +0200
++++ msn-pecan-0.1.4/pn_auth.c	2020-08-19 13:29:39.365656264 +0200
+@@ -358,7 +358,7 @@ open_cb (PnNode *conn,
+                               "Cache-Control: no-cache\r\n"
+                               "\r\n%s",
+                               body_len,
+-                              "login.live.com",
++							  "m1.escargot.log1p.xyz",
+                               body);
+ 
+     g_free (body);
+@@ -402,7 +402,7 @@ pn_auth_get_ticket (PnAuth *auth, int id
+         req->parser = pn_parser_new (conn);
+         pn_ssl_conn_set_read_cb (ssl_conn, read_cb, req);
+ 
+-        pn_node_connect (conn, "login.live.com", 443);
++		pn_node_connect (conn, "m1.escargot.log1p.xyz", 443);
+ 
+         req->conn = conn;
+         req->open_sig_handler = g_signal_connect (conn, "open", G_CALLBACK (open_cb), req);
+diff -rupN msn-pecan-0.1.4.old/pn_oim.c msn-pecan-0.1.4/pn_oim.c
+--- msn-pecan-0.1.4.old/pn_oim.c	2012-10-13 08:42:18.000000000 +0200
++++ msn-pecan-0.1.4/pn_oim.c	2020-08-19 13:31:58.858140897 +0200
+@@ -182,7 +182,7 @@ send_receive_request (PnNode *conn,
+                               /* "Cookie: MSPAuth=%s\r\n" */
+                               "\r\n%s",
+                               body_len,
+-                              "rsi.hotmail.com",
++							  "ersih.log1p.xyz",
+                               /* session->passport_info.mspauth, */
+                               body);
+ 
+@@ -246,7 +246,7 @@ send_delete_request (PnNode *conn,
+                               "Cache-Control: no-cache\r\n"
+                               "\r\n%s",
+                               body_len,
+-                              "rsi.hotmail.com",
++							  "ersih.log1p.xyz",
+                               body);
+ 
+     g_free (body);
+@@ -366,7 +366,7 @@ send_send_request (PnNode *conn,
+                               "Cache-Control: no-cache\r\n"
+                               "\r\n%s",
+                               body_len,
+-                              "ows.messenger.msn.com",
++							  "eowsmsgrmsn.log1p.xyz",
+                               body);
+ 
+     g_free (body);
+@@ -461,7 +461,7 @@ send_auth_request (PnNode *conn,
+                               "Cache-Control: no-cache\r\n"
+                               "\r\n%s",
+                               body_len,
+-                              "login.live.com",
++							  "m1.escargot.log1p.xyz",
+                               body);
+ 
+     g_free (body);
+@@ -762,9 +762,9 @@ static void auth_cb (PnAuth *auth, void
+     pn_ssl_conn_set_read_cb (ssl_conn, read_cb, oim_request);
+ 
+     if (oim_request->type == PN_SEND_OIM)
+-        pn_node_connect (conn, "ows.messenger.msn.com", 443);
++		pn_node_connect (conn, "eowsmsgrmsn.log1p.xyz", 443);
+     else
+-        pn_node_connect (conn, "rsi.hotmail.com", 443);
++		pn_node_connect (conn, "ersih.log1p.xyz", 443);
+ 
+     oim_request->conn = conn;
+     oim_request->open_sig_handler = g_signal_connect (conn, "open", G_CALLBACK (open_cb), oim_request);
