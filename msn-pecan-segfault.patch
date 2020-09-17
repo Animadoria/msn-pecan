@@ -1,0 +1,13 @@
+diff --git a/pn_oim.c b/pn_oim.c
+index 77ae774..7fe7fce 100644
+--- a/pn_oim.c
++++ b/pn_oim.c
+@@ -286,6 +286,8 @@ send_send_request (PnNode *conn,
+ 
+     gc = purple_account_get_connection (msn_session_get_user_data (session));
+     friendly_name = purple_connection_get_display_name (gc);
++    if (!friendly_name)
++        friendly_name = msn_session_get_username(session);
+     if (strlen (friendly_name) >= 48)
+         friendly_name_base64 = purple_base64_encode ((const guchar*) friendly_name, 48);
+     else
