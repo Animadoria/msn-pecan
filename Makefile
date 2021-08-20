@@ -80,7 +80,7 @@ endif
 # extra debugging
 override CFLAGS += -DPECAN_DEBUG_SLP
 
-LDFLAGS := -Wl,--no-undefined
+LDFLAGS := -Wl,-undefined,error
 
 objects := msn.o \
 	   nexus.o \

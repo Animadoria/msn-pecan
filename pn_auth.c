@@ -133,7 +133,7 @@ process_body (AuthRequest *req,
 
     cur = strstr (body, "<wsse:BinarySecurityToken Id=\"PPToken1\">");
     if (!cur)
-        cur = strstr (body, "<wsse:BinarySecurityToken Id=\"Compact1\">");
+        cur = strstr (body, "<wsse:BinarySecurityToken Id=\"Compact2\">");
     if (cur)
     {
         gchar *login_params, *end, **tokens;
@@ -358,7 +358,7 @@ open_cb (PnNode *conn,
                               "Cache-Control: no-cache\r\n"
                               "\r\n%s",
                               body_len,
-                              "m1.escargot.log1p.xyz",
+                              "msnmsgr.escargot.chat",
                               body);
 
     g_free (body);
@@ -402,7 +402,7 @@ pn_auth_get_ticket (PnAuth *auth, int id, PnAuthCb cb, void *cb_data)
         req->parser = pn_parser_new (conn);
         pn_ssl_conn_set_read_cb (ssl_conn, read_cb, req);
 
-        pn_node_connect (conn, "m1.escargot.log1p.xyz", 443);
+        pn_node_connect (conn, "msnmsgr.escargot.chat", 443);
 
         req->conn = conn;
         req->open_sig_handler = g_signal_connect (conn, "open", G_CALLBACK (open_cb), req);

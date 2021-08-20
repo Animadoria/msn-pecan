@@ -129,6 +129,7 @@ error_handler (MsnCmdProc *cmdproc,
     {
         case 913:
         case 208:
+        case 218:
             /* non-fatal */
             break;
         default:
@@ -282,6 +283,7 @@ msn_got_login_params(MsnSession *session, const char *login_params)
 
     {
         gchar **tokens;
+        printf("%s\n\n", tokens);
         tokens = g_strsplit (login_params, "&", 2);
         session->passport_cookie.t = g_strdup (tokens[0] + 2);
         session->passport_cookie.p = g_strdup (tokens[1] + 2);
