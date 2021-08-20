@@ -1,7 +1,4 @@
-msn-pecan is a "fork" of libpurple's MSN plug-in with a different development
-process, clear priorities, and plan forward. It's more fair to call libpurple's
-stock msn protocol the fork, and msn-pecan the trunk, as the main development
-has moved.
+This Plugin is intended for use with the Escrgot IM network at https://escargot.chat
 
 Compared to libpurple's stock plug-in:
 
