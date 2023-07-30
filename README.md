@@ -1,4 +1,6 @@
-This Plugin is intended for use with the Escrgot IM network at https://escargot.chat
+This Plugin is intended for use with the Escargot service at https://escargot.chat
+
+Keep in mind that this fork only fixed a sign-in issue and I won't provide any support whatsoever. You're on your own, kid. Tested it on macOS, I've heard that people were successful in compiling it on Linux. For Windows... just use the goddamn client.
 
 Compared to libpurple's stock plug-in:
 
